@@ -61,8 +61,9 @@
    - **Description**: Records daily body weight with decimal precision.
 
 ### 2.2 **Entity-Relationship Diagram (ERD)**
-   - *(Create an ERD to visualize relationships between tables, such as the connection between WorkoutLogs and Exercises, with SQLite-specific data types.)*
-
+   
+   ![ERD Diagram](Images/ERD_Diagram.png)
+   
 ## 3. **API Design**
    - Define endpoints for managing workout and weight data
 
