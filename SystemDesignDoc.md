@@ -15,7 +15,7 @@
    - **Database**:
       - Stores workout entries, exercises, and body weight data for retrieval and analysis
 
-   ![image](Images/Personal%20Fitness%20Tracker%20Architectural%20Design.jpeg)
+   ![Architectural Design](Images/Personal%20Fitness%20Tracker%20Architectural%20Design.jpeg)
 
 ## 2. **Database Schema (SQLite Implementation)**
 
@@ -42,6 +42,7 @@
         exercise_id INTEGER,
         date TEXT NOT NULL,
         repetitions INTEGER NOT NULL,
+        sets INTEGER NOT NULL,
         weight REAL NOT NULL,
         FOREIGN KEY (exercise_id) REFERENCES Exercises(exercise_id)
      );
@@ -90,7 +91,8 @@
       "exercise_id": 1,
       "date": "2024-11-10",
       "repetitions": 10,
-      "weight": 50.5
+      "sets": 4,
+      "weight": 50
    }
    ```
 
@@ -99,21 +101,22 @@
 
 #### Workout Input Screen:
 
-- **Fields**: Date, Exercise dropdown, Repetitions, Weight, Add another exercise button
+- **Fields**: Date, Exercise dropdown, Repetitions, Sets, Weight, Add another exercise button
 - Submit button to save workout
 #### Workout History Screen:
 
 - **Display**: List of workouts, with expandable details for each exercise
 - Filter option by date range or exercise type
 #### Progress Visualization Screen:
-- Graph options for exercise trends (repetitions and weight over time)
+- Graph options for exercise trends (repetitions, sets, and weight over time)
 - Graph for body weight trend over time
-(Include simple sketches or wireframes to visualize each screen)
+
+    ![Wireframes](Images/Wireframes.gif)
 
 ### 4.2 UI Components
 
 - **Header**: Navigation links to the Workout Input, Workout History, and Progress Visualization screens
-- **Form Components**: Input fields for adding exercises, reps, and weight
+- **Form Components**: Input fields for adding exercises, reps, sets, and weight
 - **Table/List View:** Organized display of past workouts
 - **Charts:** Line or bar graphs for progress
 
@@ -130,3 +133,9 @@
 - Frontend sends a GET request for workout logs or body weight data
 - Backend retrieves the data from SQLite and sends it to the frontend
 - Frontend visualizes the data using Chart.js or D3.js
+
+## 6. Non-Functional Requirements
+- **Performance:** Ensure smooth data fetching and graph rendering. Target load time under 2 seconds for data display.
+- **Scalability:** While SQLite is ideal for local usage, be mindful of its limitations with large datasets if considering future expansion.
+- **Security:** Sanitize inputs and validate data types to prevent SQL injection and other security vulnerabilities.
+- **Maintainability:** Use modular code with well-documented functions for easier maintenance
