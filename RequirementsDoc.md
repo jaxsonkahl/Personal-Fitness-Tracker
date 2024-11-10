@@ -82,7 +82,7 @@
       3. User views the graph displaying trends over time.
    - **Post-Condition**: User can see changes in repetitions, weight, or body weight over time.
 
-## 5. **Future Enhancements** (optional)
+## 5. **Future Enhancements**
    - **User Authentication**: Allow users to create accounts for personalized data storage.
    - **Social Features**: Enable users to share workout progress.
    - **Workout Recommendations**: Suggest exercises based on past activity.
