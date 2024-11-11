@@ -1,37 +1,102 @@
-body {
-    font-family: Arial, sans-serif;
+/* Reset and basic styling */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4efefb0;
+    color: #333;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
 }
 
-#app {
+/* Banner styling */
+.banner {
     width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #333;
+    color: #28a745;
+    padding: 0.5rem 0;
+    text-align: center;
+    font-size: 1.5rem;
 }
 
-input, button {
-    margin: 5px 0;
-    padding: 8px;
+/* Main content styling */
+main {
+    width: 80%;
+    max-width: 800px;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Form section styling */
+.form-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-right: 1rem;
+}
+
+.form-section input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
     width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    max-width: 200px;
 }
 
-button {
-    background-color: #4CAF50;
+.form-section button {
+    padding: 0.5rem 1rem;
+    background-color: #28a745;
     color: white;
+    border: none;
+    border-radius: 3px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #45a049;
+.form-section button:hover {
+    background-color: #0f532c;
+}
+
+/* Exercises section styling */
+.exercises-section {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exercises-section h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+#exercise-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#exercise-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ddd;
+}
+
+#exercise-list li:last-child {
+    border-bottom: none;
 }

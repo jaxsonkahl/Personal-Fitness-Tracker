@@ -5,25 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout Tracker</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="app.js"></script>
 </head>
 <body>
-    <h1>Workout Tracker</h1>
-    <div id="app">
-        <section id="add-exercise">
-            <h2>Add Exercise</h2>
+    <!-- Top Banner -->
+    <header class="banner">
+        <h1>Personal Workout Tracker</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="form-section">
+            <h2>Add New Exercise</h2>
             <input type="text" id="exercise-name" placeholder="Exercise Name">
             <input type="text" id="exercise-description" placeholder="Exercise Description">
-            <button onclick="addExercise()">Add Exercise</button>
+            <button id="addExerciseButton" onclick="addExercise()">Add Exercise</button>
         </section>
 
-        <section id="view-exercises">
+        <section class="exercises-section">
             <h2>Exercises</h2>
             <ul id="exercise-list"></ul>
         </section>
-
-        <!-- Additional sections for workout logs and body weight logs will go here -->
-    </div>
-
-    <script src="app.js"></script>
+    </main>
 </body>
 </html>

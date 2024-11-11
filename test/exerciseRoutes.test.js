@@ -16,7 +16,6 @@ function resetDatabase(done) {
 }
 
 describe('Exercise Routes', () => {
-  //beforeEach((done) => resetDatabase(done));
 
   it('should add a new exercise', (done) => {
     const exercise = { name: 'Push-up', description: 'A bodyweight exercise' };
@@ -114,10 +113,15 @@ describe('Exercise Routes', () => {
         done();
       });
   });
+  
 
   // Test for adding a new workout log
   describe('Workout Logs', () => {
+    //beforeEach((done) => resetDatabase(done));
+    //afterEach((done) => resetDatebase(done)); 
+
     let exerciseId;
+    
   
     // Add an exercise before testing workout logs
     beforeEach((done) => {
@@ -170,6 +174,9 @@ describe('Exercise Routes', () => {
 
   // Test for retrieving all body weight logs
   describe('Body Weight Logs', () => {
+   //beforeEach((done) => resetDatabase(done));
+    //afterEach((done) => resetDatebase(done)); 
+
     it('should add a new body weight log', (done) => {
       const bodyWeightLog = {
         date: '2024-01-01',
