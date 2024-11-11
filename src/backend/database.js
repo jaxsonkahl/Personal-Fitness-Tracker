@@ -9,7 +9,10 @@ function initializeDatabase() {
       exercise_id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       description TEXT
-    )`);
+    )`)
+    ,(eer) => {
+      if (eer) console.log("Error creating Excersise Table")
+    };
 
     // Create WorkoutLogs table
     db.run(`CREATE TABLE IF NOT EXISTS WorkoutLogs (
@@ -20,14 +23,20 @@ function initializeDatabase() {
       sets INTEGER NOT NULL,
       weight REAL NOT NULL,
       FOREIGN KEY (exercise_id) REFERENCES Exercises(exercise_id)
-    )`);
+    )`)
+    ,(eer) => {
+      if (eer) console.log("Error creating WorkoutLogs Table")
+    };
 
     // Create BodyWeight table
     db.run(`CREATE TABLE IF NOT EXISTS BodyWeight (
       weight_id INTEGER PRIMARY KEY AUTOINCREMENT,
       date TEXT NOT NULL,
       weight REAL NOT NULL
-    )`);
+    )`)
+    ,(eer) => {
+      if (eer) console.log("Error creating BodyWeight Table")
+    };
   });
 }
 
