@@ -1,13 +1,14 @@
+// exerciseRoutes.test.js
 const chai = require('chai');
-const chaiHttp = require('chai-http');
-const expect = chai.expect;
-const app = require('../src/backend/app'); // Adjust path if needed
+const chaiHttp = require('chai-http'); // Use require for CommonJS modules
 
+const app = require('../src/backend/app.js'); // Import app directly as CommonJS
+
+// Use chai-http with Chai
 chai.use(chaiHttp);
+const { expect } = chai;
 
 describe('Exercise Routes', () => {
-
-  // Test POST /exercises/add
   it('should add a new exercise', (done) => {
     const exercise = {
       name: 'Push-up',
@@ -26,7 +27,6 @@ describe('Exercise Routes', () => {
       });
   });
 
-  // Test GET /exercises
   it('should retrieve all exercises', (done) => {
     chai.request(app)
       .get('/exercises')

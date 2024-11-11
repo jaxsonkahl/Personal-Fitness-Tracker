@@ -6,14 +6,18 @@ const { initializeDatabase } = require('./database');
 const app = express();
 const port = 3000;
 
-// Middlewares
+// Middleware setup
 app.use(cors()); // Enable CORS
 app.use(bodyParser.json()); // Parse JSON bodies
 
 // Initialize Database
 initializeDatabase();
 
-// Set up routes (You will create these later)
+// Import and set up routes
+const exerciseRoutes = require('./routes/exerciseRoutes');
+app.use('/exercises', exerciseRoutes);
+
+// Root route
 app.get('/', (req, res) => {
   res.send('Workout Tracker API');
 });
