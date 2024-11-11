@@ -1,8 +1,10 @@
-const express = require('express');
-const { addExercise } = require('../controllers/exerciseController');
+// exerciseRoutes.js
+import express from 'express';
+import { addExercise, getExercises } from '../controllers/exerciseController.js'; // Update the path as needed
+
 const router = express.Router();
 
-// POST route for adding exercises
 router.post('/add', addExercise);
+router.get('/', getExercises);
 
-module.exports = router;
+export default router;

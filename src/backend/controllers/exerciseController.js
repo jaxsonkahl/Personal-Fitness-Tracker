@@ -1,7 +1,8 @@
-const { db } = require('../database');
+// exerciseController.js
+import { db } from '../database.js';
 
 // Function to add a new exercise
-function addExercise(req, res) {
+export function addExercise(req, res) {
   const { name, description } = req.body;
   const query = `INSERT INTO Exercises (name, description) VALUES (?, ?)`;
   db.run(query, [name, description], function(err) {
@@ -13,4 +14,14 @@ function addExercise(req, res) {
   });
 }
 
-module.exports = { addExercise };
+// Function to get all exercises
+export function getExercises(req, res) {
+  const query = `SELECT * FROM Exercises`;
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      res.status(500).send({ error: 'Failed to retrieve exercises' });
+      return;
+    }
+    res.status(200).send(rows);
+  });
+}

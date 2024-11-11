@@ -1,11 +1,8 @@
 // exerciseRoutes.test.js
-const chai = require('chai');
-const chaiHttp = require('chai-http'); // Use require for CommonJS modules
+import chai from 'chai';
+import request from 'supertest';
+import { app } from '../src/backend/app.js';
 
-const app = require('../src/backend/app.js'); // Import app directly as CommonJS
-
-// Use chai-http with Chai
-chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Exercise Routes', () => {
@@ -15,11 +12,12 @@ describe('Exercise Routes', () => {
       description: 'A bodyweight exercise'
     };
 
-    chai.request(app)
+    request(app)
       .post('/exercises/add')
       .send(exercise)
+      .expect(200) // supertest allows us to directly check the status
       .end((err, res) => {
-        expect(res).to.have.status(200);
+        if (err) return done(err);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('message').eql('Exercise added successfully');
         expect(res.body).to.have.property('exercise_id');
@@ -28,10 +26,11 @@ describe('Exercise Routes', () => {
   });
 
   it('should retrieve all exercises', (done) => {
-    chai.request(app)
+    request(app)
       .get('/exercises')
+      .expect(200)
       .end((err, res) => {
-        expect(res).to.have.status(200);
+        if (err) return done(err);
         expect(res.body).to.be.an('array');
         expect(res.body.length).to.be.at.least(1);
         done();
