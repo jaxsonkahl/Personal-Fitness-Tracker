@@ -17,8 +17,6 @@ initializeDatabase();
 // Set up routes
 app.use('/exercises', exerciseRoutes);
 
-
-
 // Root route
 app.get('/', (req, res) => {
   res.send('Workout Tracker API');

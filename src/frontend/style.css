@@ -24,7 +24,7 @@ body {
     font-size: 1.5rem;
 }
 
-/* Main content styling */
+/* Main content container styling */
 main {
     width: 90%;
     max-width: 1000px;
@@ -105,7 +105,10 @@ main {
 }
 
 /* Section Styling (Exercises, Workouts, Body Weight, Progress) */
-.exercises-section, .workouts-section, .body-weight-section, .progress-section {
+.exercises-section,
+.workouts-section,
+.body-weight-section,
+.progress-section {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -115,25 +118,35 @@ main {
     margin-top: 20px;
 }
 
-.exercises-section h2, .workouts-section h2, .body-weight-section h2, .progress-section h2 {
+.exercises-section h2,
+.workouts-section h2,
+.body-weight-section h2,
+.progress-section h2 {
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 10px;
 }
 
-#exercise-list, #workout-list, #body-weight-list {
+/* List Styling (Exercise, Workout, Body Weight Logs) */
+#exercise-list,
+#workout-list,
+#body-weight-list {
     list-style-type: none;
     padding-left: 0;
 }
 
-#exercise-list li, #workout-list li, #body-weight-list li {
+#exercise-list li,
+#workout-list li,
+#body-weight-list li {
     padding: 10px;
     border-bottom: 1px dotted #9b9b9ba8;
     font-size: 0.9rem;
     color: #393939;
 }
 
-#exercise-list li:last-child, #workout-list li:last-child, #body-weight-list li:last-child {
+#exercise-list li:last-child,
+#workout-list li:last-child,
+#body-weight-list li:last-child {
     border-bottom: none;
 }
 
@@ -158,12 +171,15 @@ main {
     background-color: #f44336;
 }
 
-/* Tab-Specific Content */
-#addExerciseTab, #addWorkoutTab, #addBodyWeightTab, #viewProgressTab {
+/* Tab-Specific Content Visibility */
+#addExerciseTab,
+#addWorkoutTab,
+#addBodyWeightTab,
+#viewProgressTab {
     display: none;
 }
 
-
+/* Dropdown Styling */
 .select-dropdown {
     width: 100%;
     max-width: 600px;
@@ -193,6 +209,7 @@ main {
     max-width: 600px;
 }
 
+/* Chart Container Styling */
 .chart-container {
     background-color: white;
     padding: 20px;
@@ -201,8 +218,7 @@ main {
     width: 100%;
     max-width: 600px;
     margin-top: 20px;
-
-    min-height: 300px; /* Minimum height for the chart */
+    min-height: 300px;
 }
 
 #progressChart {
@@ -210,7 +226,7 @@ main {
     height: auto !important;
 }
 
-
+/* Specific Input Styling in Workout and Body Weight Tabs */
 #addWorkoutTab .form-section input {
     min-width: 80px;
     flex: 1;
