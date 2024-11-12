@@ -215,7 +215,7 @@ async function getBodyWeightLogs() {
 
         bodyWeights.forEach(log => {
             const listItem = document.createElement('li');
-            listItem.textContent = `Date: ${log.date}, Weight: ${log.weight} kg`;
+            listItem.textContent = `Date: ${log.date}, Weight: ${log.weight} lbs`;
             bodyWeightList.appendChild(listItem);
         });
     } catch (error) {
@@ -286,7 +286,7 @@ function createChart(labels, data, title, yAxisLabel) {
                 },
                 y: {
                     title: { display: true, text: yAxisLabel },
-                    beginAtZero: true
+                    beginAtZero: false
                 }
             }
         }
