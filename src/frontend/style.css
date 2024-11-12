@@ -193,7 +193,6 @@ main {
     gap: 1rem;
     width: 100%;
     max-width: 600px;
-    margin-top: 0px;
 }
 
 /* Optional styling for label */
@@ -207,4 +206,50 @@ main {
 .exercises-section, .workouts-section, .progress-section {
     margin-top: 20px;
     width: 100%;
+}
+
+#addWorkoutTab .form-section input {
+    min-width: 80px; /* Set a minimum width to ensure text fits */
+    flex: 1; /* Allow inputs to take available space */
+}
+
+#addWorkoutTab .form-section input[type="date"] {
+    width: 140px; /* Wider width for the date input */
+}
+
+#addWorkoutTab .form-section input[type="number"] {
+    width: 80
+    px; /* Slightly wider width for numeric fields */
+}
+
+.workouts-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.workouts-section h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#workout-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#workout-list li {
+    padding: 10px;
+    border-bottom: 1px dotted #9b9b9ba8;
+    font-size: 0.9rem; /* Adjust font size to make it smaller */
+    color: #393939;
+}
+
+#workout-list li:last-child {
+    border-bottom: none;
 }

@@ -9,7 +9,7 @@ async function addExercise() {
     const description = document.getElementById('exercise-description').value;
 
     if (!name || !description) {
-        showNotification('Please fill in both fields.', 'error');
+        showNotification('Please fill in both fields', 'error');
         return;
     }
 
@@ -82,12 +82,17 @@ function showTab(tabId) {
     });
 
     document.getElementById(tabId).style.display = 'block';
+    localStorage.setItem('activeTab', tabId); // Store the active tab in localStorage
 }
 
 // Initialize by showing the Add Exercise tab
 window.onload = () => {
-    getExercises();
-    showTab('addExerciseTab');
+    const activeTab = localStorage.getItem('activeTab') || 'addExerciseTab'; // Default to 'addExerciseTab'
+    showTab(activeTab); // Show the active tab on load
+
+    getExercises(); // Load exercises when the page loads
+    getWorkouts(); // Load workouts when the page loads
+    populateExerciseOptions(); // Populate exercise options for dropdowns
 };
 
 
@@ -130,9 +135,78 @@ async function populateExerciseOptions() {
     }
 }
 
-// Populate exercise options on page load
-populateExerciseOptions();
+async function addWorkout() {
+    const exerciseId = document.getElementById('workout-exercise').value;
+    const date = document.getElementById('workout-date').value;
+    const reps = document.getElementById('workout-reps').value;
+    const sets = document.getElementById('workout-sets').value;
+    const weight = document.getElementById('workout-weight').value;
 
+    if (!exerciseId || !date|| !reps|| !sets|| !weight) {
+        showNotification('Please fill in all fields', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/exercises/workout-logs/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ exercise_id: exerciseId, date, repetitions: reps, sets, weight })
+        });
+
+        if (response.ok) {
+            alert('Workout added successfully', 'success');
+            document.getElementById('workout-date').value = '';
+            document.getElementById('workout-reps').value = '';
+            document.getElementById('workout-sets').value = '';
+            document.getElementById('workout-weight').value = '';
+            await getWorkouts(); // Refresh the list of workouts
+        } else {
+            const error = await response.json();
+            showNotification(`Error: ${error.error}`, 'error');
+        }
+    } catch (error) {
+        console.error('Error adding workout:', error);
+    }
+}
+
+// Function to fetch and display all workouts
+async function getWorkouts() {
+    try {
+        // Fetch all workouts
+        const response = await fetch(`${API_URL}/exercises/workout-logs`);
+        const workouts = await response.json();
+
+        // Fetch all exercises to match names with IDs
+        const exercisesResponse = await fetch(`${API_URL}/exercises`);
+        const exercises = await exercisesResponse.json();
+
+        // Create a map for quick lookup of exercise names by ID
+        const exerciseMap = exercises.reduce((map, exercise) => {
+            map[exercise.exercise_id] = exercise.name;
+            return map;
+        }, {});
+
+        // Get the workout list element and clear it
+        const workoutList = document.getElementById('workout-list');
+        workoutList.innerHTML = '';
+
+        // Display each workout with the exercise name instead of the ID
+        workouts.forEach(workout => {
+            const listItem = document.createElement('li');
+            const exerciseName = exerciseMap[workout.exercise_id] || 'Unknown Exercise';
+            listItem.textContent = `${exerciseName}, Date: ${workout.date}, Reps: ${workout.repetitions}, Sets: ${workout.sets}, Weight: ${workout.weight} lbs`;
+            workoutList.appendChild(listItem);
+        });
+    } catch (error) {
+        console.error('Error fetching workouts:', error);
+    }
+}
+
+// Event listener for the add workout button
+document.getElementById('addWorkoutButton').addEventListener('click', addWorkout);
 
 
 // Set up the event listener only once
@@ -144,4 +218,6 @@ window.addEventListener('DOMContentLoaded', () => {
     addButton.addEventListener('click', addExercise); // Attach the listener
 
     getExercises(); // Load exercises when the page loads
+    getWorkouts();
+    populateExerciseOptions();
 });
