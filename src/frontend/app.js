@@ -75,6 +75,22 @@ async function getExercises() {
     }
 }
 
+function showTab(tabId) {
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.style.display = 'none';
+    });
+
+    document.getElementById(tabId).style.display = 'block';
+}
+
+// Initialize by showing the Add Exercise tab
+window.onload = () => {
+    getExercises();
+    showTab('addExerciseTab');
+};
+
+
 function showNotification(message, type) {
     const notification = document.getElementById('notification');
     notification.textContent = message;
@@ -85,6 +101,39 @@ function showNotification(message, type) {
         notification.style.display = 'none';
     }, 3000); // Hide after 3 seconds
 }
+async function populateExerciseOptions() {
+    try {
+        const response = await fetch(`${API_URL}/exercises`);
+        const exercises = await response.json();
+        
+        // Populate options for adding workout
+        const workoutExerciseSelect = document.getElementById('workout-exercise');
+        workoutExerciseSelect.innerHTML = '';
+        exercises.forEach(exercise => {
+            const option = document.createElement('option');
+            option.value = exercise.exercise_id;
+            option.textContent = exercise.name;
+            workoutExerciseSelect.appendChild(option);
+        });
+
+        // Populate options for viewing progress
+        const progressExerciseSelect = document.getElementById('progress-exercise');
+        progressExerciseSelect.innerHTML = '';
+        exercises.forEach(exercise => {
+            const option = document.createElement('option');
+            option.value = exercise.exercise_id;
+            option.textContent = exercise.name;
+            progressExerciseSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error populating exercises:', error);
+    }
+}
+
+// Populate exercise options on page load
+populateExerciseOptions();
+
+
 
 // Set up the event listener only once
 window.addEventListener('DOMContentLoaded', () => {

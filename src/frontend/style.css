@@ -26,15 +26,46 @@ body {
 
 /* Main content styling */
 main {
-    width: 80%;
-    max-width: 800px;
+    width: 90%;
+    max-width: 1000px; /* Adjusted for overall layout */
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2rem;
 }
 
-/* Form section styling */
+/* Tab Navigation */
+.tab-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.tab-button:hover {
+    background-color: #45a049;
+}
+
+/* Tab Content Styling */
+.tab-content {
+    display: none;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Form Section Styling */
 .form-section {
     display: flex;
     align-items: center;
@@ -46,45 +77,48 @@ main {
 }
 
 .form-section h2 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #333;
-    margin-right: 1rem;
+    margin-bottom: 10px;
 }
 
 .form-section input {
-    padding: 0.5rem;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
     width: 100%;
-    max-width: 200px;
 }
 
 .form-section button {
-    padding: 0.5rem 1rem;
-    background-color: #28a745;
+    padding: 10px;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 .form-section button:hover {
-    background-color: #0f532c;
+    background-color: #45a049;
 }
 
-/* Exercises section styling */
+/* Exercises Section Styling */
 .exercises-section {
     background-color: white;
-    padding: 1rem;
-    border-radius: 5px;
+    padding: 20px;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Increased width */
+    max-width: 600px; /* Increased max width for larger screens */
+    margin-top: 20px;
 }
 
 .exercises-section h2 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #333;
-    margin-bottom: 0.5rem;
+    margin-bottom: 10px;
 }
 
 #exercise-list {
@@ -93,13 +127,15 @@ main {
 }
 
 #exercise-list li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    border-bottom: 1px dotted #9b9b9ba8;
 }
 
 #exercise-list li:last-child {
     border-bottom: none;
 }
+
+/* Notification Styling */
 .notification {
     position: fixed;
     top: 15px;
@@ -118,4 +154,14 @@ main {
 
 .notification.error {
     background-color: #f44336;
+}
+
+/* Tab-Specific Content */
+#addExerciseTab, #addWorkoutTab, #viewProgressTab {
+    display: none;
+}
+
+.exercises-section, .workouts-section, .progress-section {
+    margin-top: 20px;
+    width: 100%;
 }
