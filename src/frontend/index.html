@@ -6,6 +6,7 @@
     <title>Workout Tracker</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Top Banner -->
@@ -15,38 +16,42 @@
 
     <!-- Tab Navigation -->
     <nav class="tab-navigation">
+        <!-- Navigation buttons for different sections -->
         <button class="tab-button" onclick="showTab('addExerciseTab')">Add Exercises</button>
         <button class="tab-button" onclick="showTab('addWorkoutTab')">Add Workouts</button>
-        <button class="tab-button" onclick="showTab('addBodyWeightTab')">Add Body Weight</button> <!-- New Tab Button -->
+        <button class="tab-button" onclick="showTab('addBodyWeightTab')">Add Bodyweight</button>
         <button class="tab-button" onclick="showTab('viewProgressTab')">View Progress</button>
     </nav>
 
     <!-- Main Content -->
     <main>
-        <!-- Notification div -->
+        <!-- Notification section for displaying messages to the user -->
         <div id="notification" class="notification"></div>
 
-        <!-- Add Exercises Tab Content -->
+        <!-- Add Exercises Tab -->
         <section id="addExerciseTab" class="tab-content">
             <h2>Add New Exercise</h2>
             <div class="form-section">
+                <!-- Input fields for adding a new exercise -->
                 <input type="text" id="exercise-name" placeholder="Exercise Name" required>
                 <input type="text" id="exercise-description" placeholder="Description" required>
                 <button id="addExerciseButton">Add Exercise</button>
             </div>
             <div class="exercises-section">
                 <h2>Exercises</h2>
+                <!-- List to display existing exercises -->
                 <ul id="exercise-list"></ul>
             </div>
         </section>
 
-        <!-- Add Workouts Tab Content -->
+        <!-- Add Workouts Tab -->
         <section id="addWorkoutTab" class="tab-content">
             <h2>Add Workout</h2>
             <div class="form-section">
-                <div class = "dropdown-container">
+                <!-- Dropdown and input fields for adding a workout -->
+                <div class="dropdown-container">
                     <select id="workout-exercise" class="select-dropdown" required>
-                        <!-- Options will be populated by JavaScript -->
+                        <!-- Exercise options populated by JavaScript -->
                     </select>
                 </div>
                 <input type="date" id="workout-date" required>
@@ -57,38 +62,63 @@
             </div>
             <div class="workouts-section">
                 <h2>Workouts</h2>
-                <ul id="workout-list"></ul> <!-- This will display the list of workouts -->
+                <!-- List to display existing workouts -->
+                <ul id="workout-list"></ul>
             </div>
         </section>
-        
+
+        <!-- Add Body Weight Tab -->
         <section id="addBodyWeightTab" class="tab-content">
             <h2>Add Body Weight</h2>
             <div class="form-section">
+                <!-- Input fields for adding a body weight log -->
                 <input type="date" id="body-weight-date" required>
-                <input type="number" id="body-weight-value" placeholder="Weight (kg)" required>
+                <input type="number" id="body-weight-value" placeholder="Weight (lbs)" required>
                 <button id="addBodyWeightButton">Add Body Weight</button>
             </div>
             <div class="body-weight-section">
                 <h2>Body Weight Logs</h2>
+                <!-- List to display body weight logs -->
                 <ul id="body-weight-list"></ul>
             </div>
         </section>
 
-        <!-- View Progress Tab Content -->
+        <!-- View Progress Tab -->
         <section id="viewProgressTab" class="tab-content">
             <h2>View Progress</h2>
-            <p>Select exercise and date range to view progress.</p>
+            <p>Select exercise, date range, and metric to view progress.</p>
+            <p>❂ To see bodyweight progression, simply select Metric: Bodyweight</p>
+            
             <div class="form-section">
-                <div class = "dropdown-container">
+                <!-- Dropdowns and date inputs for selecting progress criteria -->
+                <div class="dropdown-container">
+                    <label for="progress-exercise" class="dropdown-label">Exercise:</label>
                     <select id="progress-exercise" class="select-dropdown" required>
-                        <!-- Options will be populated by JavaScript -->
+                        <!-- Exercise options populated by JavaScript -->
+                    </select>
+        
+                    <label for="progress-metric" class="dropdown-label">Metric:</label>
+                    <select id="progress-metric" class="select-dropdown">
+                        <option value="weight">Weight</option>
+                        <option value="bodyWeight">Body Weight</option>
                     </select>
                 </div>
-                <input type="date" id="progress-start-date">
-                <input type="date" id="progress-end-date">
+        
+                <div class="date-container">
+                    <!-- Date range inputs for filtering progress data -->
+                    <label for="progress-start-date" class="dropdown-label">Start Date:</label>
+                    <input type="date" id="progress-start-date">
+                    <label for="progress-end-date" class="dropdown-label">End Date:</label>
+                    <input type="date" id="progress-end-date">
+                </div>
+        
                 <button id="viewProgressButton">View Progress</button>
             </div>
-            <canvas id="progressChart" width="400" height="200"></canvas>
+            
+            <!-- Container to hold the chart once generated -->
+            <div class="chart-container">
+                <canvas id="progressChart" width="400" height="250"></canvas>
+            </div>
         </section>
     </main>
 </body>

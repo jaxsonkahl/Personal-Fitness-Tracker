@@ -1,5 +1,6 @@
 const API_URL = 'http://localhost:3000';
 
+// Function to add a new exercise
 async function addExercise() {
     const button = document.getElementById('addExerciseButton');
     button.disabled = true; // Prevent duplicate requests
@@ -9,20 +10,23 @@ async function addExercise() {
 
     if (!name || !description) {
         showNotification('Please fill in both fields', 'error');
+        button.disabled = false;
         return;
     }
 
     try {
         const existingExercisesResponse = await fetch(`${API_URL}/exercises`);
         const existingExercises = await existingExercisesResponse.json();
+
+        // Check for duplicate exercise
         const duplicateExercise = existingExercises.find(
-            (exercise) => exercise.name === name && exercise.description === description
+            exercise => exercise.name === name && exercise.description === description
         );
 
         if (duplicateExercise) {
             showNotification("Exercise already exists!", "error");
-            return;
         } else {
+            // Add new exercise
             const response = await fetch(`${API_URL}/exercises/add`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -30,7 +34,7 @@ async function addExercise() {
             });
 
             if (response.ok) {
-                showNotification('Exercise added successfully', 'success');
+                alert('Exercise added successfully', 'success');
                 getExercises(); // Refresh exercise list
                 document.getElementById('exercise-name').value = '';
                 document.getElementById('exercise-description').value = '';
@@ -40,6 +44,7 @@ async function addExercise() {
             }
         }
     } catch (error) {
+        console.error('Error adding exercise:', error);
         showNotification("Failed to add exercise", 'error');
     } finally {
         button.disabled = false;
@@ -65,58 +70,39 @@ async function getExercises() {
     }
 }
 
+// Show a specific tab and remember the selected tab in local storage
 function showTab(tabId) {
     const tabs = document.querySelectorAll('.tab-content');
-    tabs.forEach(tab => {
-        tab.style.display = 'none';
-    });
-
+    tabs.forEach(tab => (tab.style.display = 'none'));
     document.getElementById(tabId).style.display = 'block';
-    localStorage.setItem('activeTab', tabId); // Store the active tab
+    localStorage.setItem('activeTab', tabId);
 }
 
-// Initialize by showing the Add Exercise tab
-window.onload = () => {
-    const activeTab = localStorage.getItem('activeTab') || 'addExerciseTab';
-    showTab(activeTab);
-
-    getExercises();
-    getWorkouts();
-    getBodyWeightLogs();
-    populateExerciseOptions();
-};
-
+// Show a notification
 function showNotification(message, type) {
     const notification = document.getElementById('notification');
     notification.textContent = message;
     notification.className = `notification ${type}`;
     notification.style.display = 'block';
-
-    setTimeout(() => {
-        notification.style.display = 'none';
-    }, 3000);
+    setTimeout(() => (notification.style.display = 'none'), 3000);
 }
 
+// Populate dropdowns for workout and progress views with exercise options
 async function populateExerciseOptions() {
     try {
         const response = await fetch(`${API_URL}/exercises`);
         const exercises = await response.json();
 
         const workoutExerciseSelect = document.getElementById('workout-exercise');
-        workoutExerciseSelect.innerHTML = '';
-        exercises.forEach(exercise => {
-            const option = document.createElement('option');
-            option.value = exercise.exercise_id;
-            option.textContent = exercise.name;
-            workoutExerciseSelect.appendChild(option);
-        });
-
         const progressExerciseSelect = document.getElementById('progress-exercise');
+        workoutExerciseSelect.innerHTML = '';
         progressExerciseSelect.innerHTML = '';
+
         exercises.forEach(exercise => {
             const option = document.createElement('option');
             option.value = exercise.exercise_id;
             option.textContent = exercise.name;
+            workoutExerciseSelect.appendChild(option.cloneNode(true));
             progressExerciseSelect.appendChild(option);
         });
     } catch (error) {
@@ -124,6 +110,7 @@ async function populateExerciseOptions() {
     }
 }
 
+// Function to add a workout
 async function addWorkout() {
     const exerciseId = document.getElementById('workout-exercise').value;
     const date = document.getElementById('workout-date').value;
@@ -144,7 +131,7 @@ async function addWorkout() {
         });
 
         if (response.ok) {
-            showNotification('Workout added successfully', 'success');
+            alert('Workout added successfully', 'success');
             document.getElementById('workout-date').value = '';
             document.getElementById('workout-reps').value = '';
             document.getElementById('workout-sets').value = '';
@@ -159,7 +146,7 @@ async function addWorkout() {
     }
 }
 
-// Fetch and display workouts
+// Fetch and display workouts with mapped exercise names
 async function getWorkouts() {
     try {
         const response = await fetch(`${API_URL}/exercises/workout-logs`);
@@ -186,7 +173,7 @@ async function getWorkouts() {
     }
 }
 
-// Add body weight function
+// Add a body weight log
 async function addBodyWeight() {
     const date = document.getElementById('body-weight-date').value;
     const weight = document.getElementById('body-weight-value').value;
@@ -204,7 +191,7 @@ async function addBodyWeight() {
         });
 
         if (response.ok) {
-            showNotification('Body weight log added successfully', 'success');
+            alert('Body weight log added successfully', 'success');
             document.getElementById('body-weight-date').value = '';
             document.getElementById('body-weight-value').value = '';
             getBodyWeightLogs();
@@ -236,12 +223,84 @@ async function getBodyWeightLogs() {
     }
 }
 
-// Event listeners
+// Fetch data and display progress chart based on selected criteria
+document.getElementById('viewProgressButton').addEventListener('click', async () => {
+    const exerciseId = document.getElementById('progress-exercise').value;
+    const startDate = document.getElementById('progress-start-date').value;
+    const endDate = document.getElementById('progress-end-date').value;
+    const metric = document.getElementById('progress-metric').value;
+
+    if (!startDate || !endDate || (!exerciseId && metric === 'weight')) {
+        showNotification('Please select an exercise (for weight), date range, and metric', 'error');
+        return;
+    }
+
+    try {
+        let labels = [];
+        let data = [];
+
+        if (metric === 'weight') {
+            const response = await fetch(`${API_URL}/exercises/workout-logs?exercise_id=${exerciseId}&start_date=${startDate}&end_date=${endDate}`);
+            const workouts = await response.json();
+            labels = workouts.map(workout => workout.date);
+            data = workouts.map(workout => workout.weight);
+            createChart(labels, data, 'Weight Over Time', 'Weight (lbs)');
+        } else if (metric === 'bodyWeight') {
+            const response = await fetch(`${API_URL}/exercises/body-weight?start_date=${startDate}&end_date=${endDate}`);
+            const bodyWeights = await response.json();
+            labels = bodyWeights.map(log => log.date);
+            data = bodyWeights.map(log => log.weight);
+            createChart(labels, data, 'Body Weight Over Time', 'Body Weight (lbs)');
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+});
+
+// Create or update the progress chart
+let progressChart;
+function createChart(labels, data, title, yAxisLabel) {
+    const ctx = document.getElementById('progressChart').getContext('2d');
+
+    if (progressChart) {
+        progressChart.destroy();
+    }
+
+    progressChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: title,
+                data: data,
+                borderColor: '#4CAF50',
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: { display: true, text: 'Date' }
+                },
+                y: {
+                    title: { display: true, text: yAxisLabel },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Set up event listeners
 document.getElementById('addWorkoutButton').addEventListener('click', addWorkout);
 document.getElementById('addBodyWeightButton').addEventListener('click', addBodyWeight);
-
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('addExerciseButton').addEventListener('click', addExercise);
+
+    const activeTab = localStorage.getItem('activeTab') || 'addExerciseTab';
+    showTab(activeTab);
 
     getExercises();
     getWorkouts();
