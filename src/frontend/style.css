@@ -18,7 +18,7 @@ body {
 .banner {
     width: 100%;
     background-color: #333;
-    color: #28a745;
+    color: #feffff;
     padding: 0.5rem 0;
     text-align: center;
     font-size: 1.5rem;
@@ -99,4 +99,23 @@ main {
 
 #exercise-list li:last-child {
     border-bottom: none;
+}
+.notification {
+    position: fixed;
+    top: 15px;
+    right: 50px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    display: none;
+    z-index: 1000;
+    opacity: 1;
+}
+
+.notification.success {
+    background-color: #4CAF50;
+}
+
+.notification.error {
+    background-color: #f44336;
 }

@@ -13,13 +13,16 @@
         <h1>Personal Workout Tracker</h1>
     </header>
 
+    <!-- Notification Area -->
+    <div id="notification" class="notification"></div>
+
     <!-- Main Content -->
     <main>
         <section class="form-section">
             <h2>Add New Exercise</h2>
-            <input type="text" id="exercise-name" placeholder="Exercise Name">
-            <input type="text" id="exercise-description" placeholder="Exercise Description">
-            <button id="addExerciseButton" onclick="addExercise()">Add Exercise</button>
+            <input type="text" id="exercise-name" placeholder="Exercise Name" required>
+            <input type="text" id="exercise-description" placeholder="Exercise Description" required>
+            <button id="addExerciseButton">Add Exercise</button>
         </section>
 
         <section class="exercises-section">

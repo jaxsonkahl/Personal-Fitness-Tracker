@@ -3,12 +3,42 @@ import { db } from '../database.js';
 
 export function addExercise(req, res) {
   const { name, description } = req.body;
-  if (!name) return res.status(400).json({ error: 'Name is required' });
 
-  const query = `INSERT INTO Exercises (name, description) VALUES (?, ?)`;
-  db.run(query, [name, description], function (err) {
-    if (err) return res.status(500).json({ error: 'Failed to add exercise' });
-    res.status(200).json({ message: 'Exercise added successfully', exercise_id: this.lastID });
+  // First, check if an exercise with the same name exists
+  const checkQuery = `SELECT * FROM Exercises WHERE name = ?`;
+  db.get(checkQuery, [name], (err, row) => {
+      if (err) {
+          res.status(500).json({ error: 'Database error' });
+          return;
+      }
+
+      if (row) {
+          // If the exercise with the same name already exists
+          if (row.description === description) {
+              // If the description is the same, return a message that it's already added
+              res.status(200).json({ message: 'Exercise already added' });
+          } else {
+              // If the description is different, update the description
+              const updateQuery = `UPDATE Exercises SET description = ? WHERE name = ?`;
+              db.run(updateQuery, [description, name], function (err) {
+                  if (err) {
+                      res.status(500).json({ error: 'Failed to update exercise description' });
+                      return;
+                  }
+                  res.status(200).json({ message: 'Exercise description updated successfully' });
+              });
+          }
+      } else {
+          // If no exercise with the same name exists, insert a new exercise
+          const insertQuery = `INSERT INTO Exercises (name, description) VALUES (?, ?)`;
+          db.run(insertQuery, [name, description], function (err) {
+              if (err) {
+                  res.status(500).json({ error: 'Failed to add exercise' });
+                  return;
+              }
+              res.status(200).json({ message: 'Exercise added successfully', exercise_id: this.lastID });
+          });
+      }
   });
 }
 
