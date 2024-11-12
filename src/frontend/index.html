@@ -17,6 +17,7 @@
     <nav class="tab-navigation">
         <button class="tab-button" onclick="showTab('addExerciseTab')">Add Exercises</button>
         <button class="tab-button" onclick="showTab('addWorkoutTab')">Add Workouts</button>
+        <button class="tab-button" onclick="showTab('addBodyWeightTab')">Add Body Weight</button> <!-- New Tab Button -->
         <button class="tab-button" onclick="showTab('viewProgressTab')">View Progress</button>
     </nav>
 
@@ -60,6 +61,18 @@
             </div>
         </section>
         
+        <section id="addBodyWeightTab" class="tab-content">
+            <h2>Add Body Weight</h2>
+            <div class="form-section">
+                <input type="date" id="body-weight-date" required>
+                <input type="number" id="body-weight-value" placeholder="Weight (kg)" required>
+                <button id="addBodyWeightButton">Add Body Weight</button>
+            </div>
+            <div class="body-weight-section">
+                <h2>Body Weight Logs</h2>
+                <ul id="body-weight-list"></ul>
+            </div>
+        </section>
 
         <!-- View Progress Tab Content -->
         <section id="viewProgressTab" class="tab-content">

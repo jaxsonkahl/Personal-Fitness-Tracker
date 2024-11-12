@@ -27,7 +27,7 @@ body {
 /* Main content styling */
 main {
     width: 90%;
-    max-width: 1000px; /* Adjusted for overall layout */
+    max-width: 1000px;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
@@ -104,34 +104,36 @@ main {
     background-color: #45a049;
 }
 
-/* Exercises Section Styling */
-.exercises-section {
+/* Section Styling (Exercises, Workouts, Body Weight, Progress) */
+.exercises-section, .workouts-section, .body-weight-section, .progress-section {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%; /* Increased width */
-    max-width: 600px; /* Increased max width for larger screens */
+    width: 100%;
+    max-width: 600px;
     margin-top: 20px;
 }
 
-.exercises-section h2 {
+.exercises-section h2, .workouts-section h2, .body-weight-section h2, .progress-section h2 {
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 10px;
 }
 
-#exercise-list {
+#exercise-list, #workout-list, #body-weight-list {
     list-style-type: none;
     padding-left: 0;
 }
 
-#exercise-list li {
+#exercise-list li, #workout-list li, #body-weight-list li {
     padding: 10px;
     border-bottom: 1px dotted #9b9b9ba8;
+    font-size: 0.9rem;
+    color: #393939;
 }
 
-#exercise-list li:last-child {
+#exercise-list li:last-child, #workout-list li:last-child, #body-weight-list li:last-child {
     border-bottom: none;
 }
 
@@ -157,13 +159,8 @@ main {
 }
 
 /* Tab-Specific Content */
-#addExerciseTab, #addWorkoutTab, #viewProgressTab {
+#addExerciseTab, #addWorkoutTab, #addBodyWeightTab, #viewProgressTab {
     display: none;
-}
-
-.exercises-section, .workouts-section, .progress-section {
-    margin-top: 20px;
-    width: 100%;
 }
 
 .select-dropdown {
@@ -176,13 +173,13 @@ main {
     border-radius: 5px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    appearance: none; /* Remove default dropdown icon */
+    appearance: none;
     cursor: pointer;
 }
 
 .select-dropdown:focus {
     outline: none;
-    border-color: #4CAF50; /* Match the button hover color */
+    border-color: #4CAF50;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
@@ -203,53 +200,17 @@ main {
     margin-bottom: 0.5rem;
 }
 
-.exercises-section, .workouts-section, .progress-section {
-    margin-top: 20px;
-    width: 100%;
-}
-
 #addWorkoutTab .form-section input {
-    min-width: 80px; /* Set a minimum width to ensure text fits */
-    flex: 1; /* Allow inputs to take available space */
+    min-width: 80px;
+    flex: 1;
 }
 
-#addWorkoutTab .form-section input[type="date"] {
-    width: 140px; /* Wider width for the date input */
+#addWorkoutTab .form-section input[type="date"],
+#addBodyWeightTab .form-section input[type="date"] {
+    width: 140px;
 }
 
-#addWorkoutTab .form-section input[type="number"] {
-    width: 80
-    px; /* Slightly wider width for numeric fields */
-}
-
-.workouts-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
-}
-
-.workouts-section h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-#workout-list {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-#workout-list li {
-    padding: 10px;
-    border-bottom: 1px dotted #9b9b9ba8;
-    font-size: 0.9rem; /* Adjust font size to make it smaller */
-    color: #393939;
-}
-
-#workout-list li:last-child {
-    border-bottom: none;
+#addWorkoutTab .form-section input[type="number"],
+#addBodyWeightTab .form-section input[type="number"] {
+    width: 80px;
 }
