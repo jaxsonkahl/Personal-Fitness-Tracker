@@ -226,6 +226,7 @@ main {
     height: auto !important;
 }
 
+
 /* Specific Input Styling in Workout and Body Weight Tabs */
 #addWorkoutTab .form-section input {
     min-width: 80px;
@@ -240,4 +241,26 @@ main {
 #addWorkoutTab .form-section input[type="number"],
 #addBodyWeightTab .form-section input[type="number"] {
     width: 80px;
+}
+
+/* Footer Styling */
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f4efef;
+    color: #333;
+    font-size: 0.9rem;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.footer a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
