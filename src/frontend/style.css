@@ -165,3 +165,46 @@ main {
     margin-top: 20px;
     width: 100%;
 }
+
+.select-dropdown {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    appearance: none; /* Remove default dropdown icon */
+    cursor: pointer;
+}
+
+.select-dropdown:focus {
+    outline: none;
+    border-color: #4CAF50; /* Match the button hover color */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Dropdown container styling */
+.dropdown-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 0px;
+}
+
+/* Optional styling for label */
+.dropdown-label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.exercises-section, .workouts-section, .progress-section {
+    margin-top: 20px;
+    width: 100%;
+}

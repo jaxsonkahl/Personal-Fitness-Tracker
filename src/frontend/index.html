@@ -43,9 +43,11 @@
         <section id="addWorkoutTab" class="tab-content">
             <h2>Add Workout</h2>
             <div class="form-section">
-                <select id="workout-exercise" required>
-                    <!-- Options will be populated by JavaScript -->
-                </select>
+                <div class = "dropdown-container">
+                    <select id="workout-exercise" class="select-dropdown" required>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
                 <input type="date" id="workout-date" required>
                 <input type="number" id="workout-reps" placeholder="Repetitions" required>
                 <input type="number" id="workout-sets" placeholder="Sets" required>
@@ -59,9 +61,11 @@
             <h2>View Progress</h2>
             <p>Select exercise and date range to view progress.</p>
             <div class="form-section">
-                <select id="progress-exercise">
-                    <!-- Options populated by JavaScript -->
-                </select>
+                <div class = "dropdown-container">
+                    <select id="progress-exercise" class="select-dropdown" required>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
                 <input type="date" id="progress-start-date">
                 <input type="date" id="progress-end-date">
                 <button id="viewProgressButton">View Progress</button>
