@@ -20,7 +20,8 @@ A web-based application to help users track exercises, workouts, and body weight
 - **User-Friendly UI**: Intuitive tab navigation for easy access to each feature.
 
 ## Demonstration
-![Functionality](./Images/Demonstration.gif)
+
+https://github.com/user-attachments/assets/e5125ded-18bb-45c1-a2c1-53a08d730764
 
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript
